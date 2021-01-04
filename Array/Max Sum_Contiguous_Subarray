@@ -1,0 +1,12 @@
+int Solution::maxSubArray(const vector<int> &A) 
+{
+    int Ans = A[0];
+    int curr = A[0];
+    for(int i=1; i<A.size(); i++)
+    {
+        curr = max(A[i], curr + A[i]);
+        Ans = max(Ans, curr);
+    }
+    return Ans;
+}
+
