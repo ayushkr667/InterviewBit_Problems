@@ -1,0 +1,25 @@
+O( n ^ 2 ) Approach
+____________________________________
+
+int Solution::solve(vector<int> &A) 
+{
+    int max_sum = 0;
+    int n = A.size();
+    int temp[n] = {0};
+    for(int i = n-2; i>=0; i--)
+    {
+        temp[i] = max(temp[i+1], A[i+1]);
+    }
+    
+    for( int i = 0 ; i < n; i++)
+    {
+        for( int j = i+1 ; j<n; j++)
+        {
+            if( A[j] > A[i] && temp[j] > A[j])
+            {
+                max_sum = max( max_sum, (A[i] + A[j] + temp[j] ));
+            }
+        }
+    }
+    return max_sum;
+}
