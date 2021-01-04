@@ -1,0 +1,22 @@
+vector<int> Solution::plusOne(vector<int> &A) 
+{
+    vector<int> ans,ans1;
+    int nxt = 1;
+    for(int i = A.size()-1 ; i>=0; i--)
+    {
+        ans.push_back( (A[i] + nxt)%10 );
+        nxt  = (A[i]+ nxt)/10;
+    }
+    ans.push_back(nxt);
+    int i;
+    for(i = ans.size()-1 ; i>=0; i--)
+    {
+        if( ans[i] != 0 )
+            break;
+    }
+    for(int j = i; j>=0; j--)
+    {
+        ans1.push_back( ans[j] );
+    }
+    return ans1;
+}
