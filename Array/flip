@@ -1,0 +1,41 @@
+vector<int> Solution::flip(string A) 
+{
+    int i=0,maxlen=INT_MIN,l=1,r,count=0,ltemp=1,c=0;
+    vector<int> ans;
+    for(int i=0;i<A.length();i++)
+    {
+        if(A[i]=='0')
+        {
+            c++;
+        }
+    }
+    if(c==0)
+    {
+        return ans;
+    }
+    while(i<A.length())
+    {
+        if(A[i]=='0')
+            count++;
+            
+        else
+            count--;
+            
+        if(count>maxlen)
+        {
+            maxlen=count;
+            l=ltemp;
+            r=i+1;
+        }
+        
+        if(count<0)
+        {
+            count=0;
+            ltemp=i+2;
+        }
+        i++;
+    }
+    ans.push_back(l);
+    ans.push_back(r);
+    return ans;
+}
