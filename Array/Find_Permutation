@@ -1,0 +1,20 @@
+vector<int> Solution::findPerm(const string A, int B) 
+{
+    vector<int > res(B);
+    int f = 1 , l  = B;
+    for( int i=A.size(); i>=0; i-- )
+    {
+        if( A[i] == 'I' )
+        {
+            res[i+1] = l;
+            l--;
+        }
+        if( A[i] == 'D' )
+        {
+            res[i+1] = f;
+            f++;
+        }
+    }
+    res[0] = f;
+    return res;
+}
