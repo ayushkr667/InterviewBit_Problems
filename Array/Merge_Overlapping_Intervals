@@ -1,0 +1,38 @@
+/**
+ * Definition for an interval.
+ * struct Interval {
+ *     int start;
+ *     int end;
+ *     Interval() : start(0), end(0) {}
+ *     Interval(int s, int e) : start(s), end(e) {}
+ * };
+ */
+bool compare ( Interval a, Interval b)
+{
+    return a.start < b.start;
+}
+
+vector<Interval> Solution::merge(vector<Interval> &A) 
+{
+    sort( A.begin(), A.end(), compare);
+    int n = A.size();
+    vector<Interval> ans;
+    int start = A[0].start;
+    int end = A[0].end;
+    for(int i = 1; i<n; i++ )
+    {
+        if(A[i].start > end)
+        {
+            ans.push_back({start, end});
+            start = A[i].start;
+            end = A[i].end;
+        }
+        else
+        {
+            start = min( start, A[i].start );
+            end = max( end, A[i].end );
+        }
+    }
+    ans.push_back({start, end});
+    return ans;
+}
