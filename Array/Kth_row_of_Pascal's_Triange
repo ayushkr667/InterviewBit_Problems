@@ -1,0 +1,22 @@
+We can observe that the Nth row of the Pascals triangle consists of following sequence:
+NC0, NC1, ......, NCN - 1, NCN
+_______________________________________________________________________________________
+
+
+
+
+vector<int> Solution::getRow(int A) 
+{
+    vector<int> res;
+    int numerator = A;
+    int denominator  = 1;
+    res.push_back(1);
+    for(int i = 1; i<= A; i++)
+    {
+        int temp = ( res[i-1] * numerator ) / denominator;
+        res.push_back(temp);
+        numerator--;
+        denominator++;
+    }
+    return res;
+}
