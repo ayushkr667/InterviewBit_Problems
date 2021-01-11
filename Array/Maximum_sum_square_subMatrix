@@ -1,0 +1,39 @@
+int Solution::solve(vector<vector<int> > &A, int B) 
+{
+    int n = A.size();
+    int arr[n][n];
+    for(int i=0; i<n; i++)
+    {
+        arr[i][0] = A[i][0];
+        for(int j=1; j<n; j++)
+        {
+            arr[i][j] = arr[i][j-1] + A[i][j];
+        }
+    }
+    
+    for(int i=1; i<n; i++)
+    {
+        for(int j=0; j<n; j++)
+        {
+            arr[i][j] = arr[i-1][j] + arr[i][j];
+        }
+    }
+    
+    int m = INT_MIN;
+    for( int i = B-1; i<n; i++)
+    {
+        for( int j = B-1; j<n; j++)
+        {
+            int sum = arr[i][j];
+            if(i - B >= 0)
+                sum -= arr[i-B][j];
+            if(j - B >= 0)
+                sum -= arr[i][j-B];
+            if(i - B >=0 && j - B >=0)
+                sum += arr[i-B][j-B];
+                
+            m = max(m, sum);
+        }
+    }
+    return m;
+}
