@@ -1,0 +1,41 @@
+int Solution::maximumGap(const vector<int> &A) 
+{
+    if(A.size() < 2) return 0;
+    int n = A.size();
+    int minElem = *min_element(A.begin(), A.end());
+    int maxElem = *max_element(A.begin(), A.end());
+    if(maxElem == minElem) return 0;
+    double gap = ((double) maxElem - minElem) / ((double) n - 1);
+    vector<int> minBucket(A.size(), INT_MAX);
+    vector<int> maxBucket(A.size(), INT_MIN);
+    for(int i = 0; i < n; i++)
+    {
+        double x = (A[i] - minElem)/gap;
+        int idx = x;
+        minBucket[idx] = min(minBucket[idx], A[i]);
+        maxBucket[idx] = max(maxBucket[idx], A[i]);
+    }
+    int ans = INT_MIN;
+    
+    // for(auto a: minBucket) cout << a << " ";
+    // cout << endl;
+    // for(auto a: maxBucket) cout << a << " ";
+    
+    vector<int> minB, maxB;
+    for(int i = 0; i < A.size(); i++)
+    {
+        if(minBucket[i] != INT_MAX)
+        {
+            minB.push_back(minBucket[i]);
+            maxB.push_back(maxBucket[i]);
+        }
+    }
+    
+    for(int i = 1; i < minB.size(); i++)
+    {
+        ans = max(ans, minB[i] - maxB[i-1]);
+    }
+    
+    return ans;
+}
+
