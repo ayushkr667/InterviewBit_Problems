@@ -1,0 +1,17 @@
+int Solution::solve(vector<int> &A, int B) 
+{
+    int max_sum = 0;
+    int sum = 0;
+    int n = A.size();
+    for( int i= n-B; i<n;  i++)
+    {
+        max_sum +=A[i];
+    }
+    sum = max_sum;
+    for( int i= n-B, j=0; j<B; j++, i++)
+    {
+        sum = sum -  A[i] + A[j];
+        max_sum = max(max_sum, sum);
+    }
+    return max_sum;
+}
