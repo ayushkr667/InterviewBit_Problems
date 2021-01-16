@@ -1,0 +1,25 @@
+int Solution::solve(vector<int> &A, int B) 
+{
+    int n = A.size();
+    int maxm = *max_element( A.begin(), A.end() );
+    int minm = 0;
+    while( minm <= maxm ) 
+    {
+        int mid = minm + (maxm - minm )/2;
+        long wood = 0;
+        for(int i=0; i<n; i++)
+        {
+            if( A[i] >  mid)
+                wood+=(A[i] - mid);
+        }
+        
+        if(wood >= B )
+        {
+            minm = mid+1; //as we need to increse height
+        }
+        else
+            maxm = mid - 1;
+            
+    }
+    return maxm;
+}
