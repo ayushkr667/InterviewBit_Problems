@@ -1,0 +1,38 @@
+int Solution::search(const vector<int> &A, int B) {
+    
+    int low = 0, high = A.size() - 1;
+    
+    while(low <= high) 
+    {
+        int mid = low + (high - low) / 2;
+        
+        if(A[mid] == B) return mid;
+        
+        //If left half is sorted
+        if(A[low] <= A[mid]) 
+        {
+            //If key is present in left half
+            if(B >= A[low] && B <= A[mid]) 
+            {
+                high = mid - 1;
+            } 
+            else 
+            {
+                low = mid + 1;
+            }
+        } 
+        else 
+        { //If right half is sorted
+            //If key is present in right half
+            if(B >= A[mid] && B <= A[high]) 
+            {
+                low = mid + 1;
+            } 
+            
+            else {
+                high = mid - 1;
+            }
+        }
+    }
+    return -1;
+}
