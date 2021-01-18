@@ -1,0 +1,30 @@
+int Solution::findMedian(vector<vector<int> > &A) 
+{
+    int n = A.size(), m= A[0].size();
+    int minimum = A[0][0], maximum = A[0][0];
+    //find min and max element of matrix
+    for(int i=0; i<n; i++)
+    {
+        //only compare 1st col as row is sorted
+        minimum = min( A[i][0], minimum );
+        //only lasr col
+        maximum = max( A[i][m-1], maximum);
+    }
+    
+    int desired = (1 + n * m)/2;
+    while( minimum <= maximum )
+    {
+        int mid = minimum + (maximum - minimum)/2;
+        int count = 0;
+        //count number of elements less than mid
+        for( int i=0; i<n; i++)
+            count+= upper_bound( A[i].begin(), A[i].end(), mid) - A[i].begin();
+            
+        if( count < desired )
+            //median is greater than mid
+            minimum = mid + 1;
+        else
+            maximum = mid - 1;
+    }
+    return minimum;
+}
