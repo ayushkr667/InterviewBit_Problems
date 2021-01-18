@@ -1,0 +1,61 @@
+bool isPossible(vector<int> &A,long long int X,int B)
+{
+    int n=A.size();
+    long long int sum=X;
+    int stdcnt=1,i=0;
+    while(i<n)
+    {
+        if(sum-A[i]<0)
+        {
+            stdcnt++;
+            sum=X;
+        }
+        else 
+        {
+            sum-=A[i];
+            i++;
+        }
+        
+        if(stdcnt>B) return false;
+    }
+    return true;
+}
+
+
+int Solution::books(vector<int> &A, int B) 
+{
+    int n = A.size();
+    //if number of book is less than number of student
+    if( n < B )
+        return -1;
+        
+    long long int sum=0;
+    int l = INT_MIN;
+    for(int i=0; i<n; i++)
+    {
+        sum+=A[i]; 
+        //minimum possible answer is only maximum page book is alloted to single student.
+        l = max ( l, A[i] );
+    }
+    
+    //maximum possible is all book alloted to a single student    
+    long long int  high=sum, low = 0;
+    long long int ans= -1;
+    
+    //apply binary search
+    while(low <= high )
+    {
+        long long int mid = low + (high - low)/2;
+        if( isPossible( A, mid, B))
+        {
+            //try to decrease maximum
+            ans = mid;
+            high = mid -1;
+        }
+        else
+            //increase maximum
+            low = mid + 1;
+    }
+    
+    return ans;
+}
