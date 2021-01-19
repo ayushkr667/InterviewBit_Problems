@@ -1,0 +1,42 @@
+
+bool isVowel(char c)
+{
+    if( c=='a' || c== 'e' || c=='i' || c=='o' || c== 'u')
+        return true;
+    
+    return false;
+}
+
+int Solution::solve(string A) 
+{
+    int n =A.size();
+    int vowel = 0;
+    int conso = 0;
+    for( int i=0 ; i<n; i++)
+    {
+        //number of vowel and consonent 
+        if(isVowel(A[i]))
+            vowel++;
+            
+        else
+            conso++;
+    }
+    int sum  = 0;
+    for(int i=0; i<n; i++)
+    {
+        
+        if(isVowel(A[i]))
+        {
+            sum = (sum + conso)%1000000007;
+            vowel--;
+        }
+            
+        else
+        {
+            sum = (sum + vowel)%1000000007;
+            conso--;
+        }
+    }
+    
+    return sum;
+}
