@@ -1,0 +1,32 @@
+int Solution::isPalindrome(string A) 
+{
+    int r = A.size();
+    int l = 0, flag = 1;
+    while( l<= r)
+    {
+        //if left is not alpha numeric
+        if(!isalnum(A[l]))
+        {
+            l++;
+            continue;
+        }
+        //if right is not alpha numeric
+        if(!isalnum(A[r]))
+        {
+            r--;
+            continue;
+        }
+        
+        if(toupper(A[l]) == (toupper(A[r])))
+        {
+            l++;
+            r--;
+        }
+        else
+        {
+            flag = 0;
+            break;
+        }
+    }
+    return flag;
+}
