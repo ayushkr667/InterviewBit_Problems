@@ -1,0 +1,29 @@
+string Solution::longestCommonPrefix(vector<string> &A) 
+{
+    string res = "";
+    int n = A.size();
+    int minimum = A[0].size();
+    //find minum length string
+    for(int i=1; i<n; i++)
+    {
+        int l = A[i].size();
+        minimum = min(minimum, l);
+    }
+    
+    for(int i=0; i<minimum; i++)
+    {
+        char c = A[0][i];
+        for(int j=1; j<n; j++)
+        {
+            if( A[j][i] == c )
+            {
+                continue;
+            }
+            else
+                return res;
+        }
+        
+        res+=c;
+    }
+    return res;
+}
