@@ -1,0 +1,22 @@
+string Solution::solve(string A, int B) 
+{
+    string res="";
+    for(int i=0; i<A.size(); i++)
+    {
+        char c = A[i]; int count =1;
+        string temp =""; temp+=c;
+        i++;
+        while(A[i] == c)
+        {
+            temp +=A[i];
+            count++, i++;
+        }
+        if(count != B)
+        {
+            res+=temp;
+            temp.clear();
+        }
+        i--;
+    }
+    return res;
+}
