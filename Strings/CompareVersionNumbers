@@ -1,0 +1,91 @@
+_________________________________________________________________
+Approaach 1:
+_________________________________________________________________
+
+int Solution::compareVersion(string A, string B) {
+    
+    unsigned long long a = 0,b=0;
+    for(int i=0,j=0; (i<A.length())||(j<B.length());)
+    {
+        while(i<A.length() && A[i]!='.')
+        {
+            a+= a*10 + (A[i]-'0');
+            i++;
+        }
+        
+        while(j<B.length() && B[j]!='.')
+        {
+            b+= b*10 + (B[j]-'0');
+            j++;
+        }
+        
+        if(a>b){return 1;}
+        if(b>a){ return -1; }
+        a=0; b=0;
+        i++; j++;
+    }
+return 0;
+}
+
+
+______________________________________________________________________
+Approach 2:
+______________________________________________________________________
+
+
+int Solution::compareVersion(string A, string B) 
+{
+    int i = 0, j = 0;
+    
+    while(i<A.length() && j<A.length()){
+        string x="";
+        string y="";
+        
+        //exclude all initial zeros from begining of A
+        while(i<A.length() && A[i]=='0')
+        {
+                i++;
+        }
+       
+        while(i<A.length() && A[i]!='.')
+        {
+            x+=A[i];
+            i++;
+        }
+        
+        while(j<B.length() && B[j]=='0')
+        {
+                j++;
+        }
+            
+        while(j<B.length() && B[j]!='.')
+        {
+            y+=B[j];
+            j++;
+        }
+        
+        if(x!=y)
+        {
+            if(x.length()==y.length())
+                return x.compare(y) > 0 ? 1: -1;
+                
+            return x.length()>y.length() ? 1:-1;
+        }
+        
+        i++;
+        j++;
+    }
+    
+    while(i<A.length() && A[i]=='0'){
+        i++;
+    }
+    
+    while(j<B.length() && B[j]=='0'){
+        j++;
+    }
+    
+    if(i>=A.length() && j>=B.length())
+        return 0;
+    
+    return i>j ? 1 : -1;
+}
