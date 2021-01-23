@@ -1,0 +1,33 @@
+string divideBy2(string num)
+{
+    string d = "";
+    int a=0,i=0;
+    while(i<num.size())
+    {
+       a = a*10 + num[i]-'0';
+       while(a<2 && i<num.size()-1)
+       {
+           if(d!="")d+='0';
+           a = a*10 + num[++i]-'0';
+       }
+       d+='0'+a/2;
+       a = a%2;
+       i++;
+    }
+    return d;
+}
+
+int Solution::power(string A) 
+{
+    if(A.size()==1 && (A[0]-'0')<2)return 0;
+    
+    //keep dividing by 2
+    while((A[A.size()-1]-'0')%2==0)
+    {
+        A = divideBy2(A);
+    }
+    if(A.size()==1 && A[0]=='1')
+        return 1;
+        
+    return 0;
+}
