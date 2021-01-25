@@ -1,0 +1,17 @@
+int Solution::lengthOfLastWord(const string A) 
+{
+    int n = A.size(), size = 0, j=n-1;
+    
+    //exclude all space in last
+    while( A[j] == ' ')
+        j--;
+        
+    for( int i = j; i>=0; i--)
+    {
+        if( A[i] == ' ')
+            return size;
+            
+        size++;
+    }
+    return size;
+}
