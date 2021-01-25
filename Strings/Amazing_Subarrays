@@ -1,0 +1,13 @@
+int Solution::solve(string A) 
+{
+    int n = A.size(), res = 0;
+    for(int i = 0; i<n; i++)
+    {
+        char c = toupper(A[i]);
+        if( c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U' )
+        {
+            res = (res%10003 + ( n - i ) %10003)%10003;
+        }
+    }
+    return res;
+}
