@@ -1,0 +1,54 @@
+_________________________________________________________________________________________________
+Approach 1:
+_________________________________________________________________________________________________
+
+string Solution::solve(string A) 
+{
+    string ans="", w;
+    stringstream ss(A);
+    while(ss>>w)
+        ans=" "+w+ans;
+    return(ans.substr(1));
+}
+
+__________________________________________________________________________________________________
+Approach 2:
+__________________________________________________________________________________________________
+
+string Solution::solve(string A) 
+{
+    string temp = "", res = "";
+    int wordlength = 0, first_word = 0;
+    for(int i=A.size()-1; i>=0; i--)
+    {
+        if(A[i] == ' ' && wordlength != 0)
+        {
+            wordlength = 0;
+            reverse(temp.begin(), temp.end());
+            if( !first_word )
+            {
+                res = res + temp; 
+                first_word++;
+            }
+                
+            else
+                res = res+' '+ temp;
+                
+            temp = "";
+        }
+            
+        else if( A[i] != ' ')
+        {
+            wordlength++;
+            temp+=A[i];
+        }
+    }
+    reverse(temp.begin(), temp.end());
+    if( (!first_word)  && (wordlength != 0) )
+        res = res + temp;
+                
+    else if( wordlength != 0 )
+        res = res+' '+ temp;
+        
+    return res;
+}
