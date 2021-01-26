@@ -1,0 +1,23 @@
+int Solution::solve(string A) 
+{
+    int res = 0, open =0;
+    for( int i=0; i<A.size(); i++ )
+    {
+        //openeing bracket
+        if( A[i] == '(' )
+            open++;
+        
+        //if there is closing bracket and previously no any open bracket    
+        if( A[i] == ')' && open <=0 )
+        {
+            res++;
+        }
+        
+        //if closing bracket then decrese corresponding open bracket
+        if( A[i] == ')' && open >0 )
+        {
+            open--;
+        }
+    }
+    return res + open;
+}
