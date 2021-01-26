@@ -1,0 +1,39 @@
+/*
+With respect to a single string, 
+the total number of bits rotated after N operations 
+is 1+2+3+….+N which is (N*(N+1))/2.
+We get back the original string only when the total 
+number of rotated bits is a multiple of the length of the string S(LEN).*/
+
+
+int Solution::solve(vector<string> &A) 
+{
+    int n=A.size();
+    long long int arr[n];  //to store the time
+    for(int i=0;i<A.size();i++)  
+    //Finding time for each string when it becomes same as original 
+    {
+        long long int val=1;
+        long long int sum=1;
+        int len=A[i].length();
+        while(sum%len!=0)    
+        //string starts to repeat at the time 't' when (1+2+....+t)%length==0 
+        //you can easily observe this through multiple examples
+        {
+            val++;
+            sum+=val;
+        }
+        arr[i]=val;
+    }
+    long long int ans=1;
+    long long int M=1000000007;
+    for(int i=0;i<n;i++)   // Calculating LCM
+    {
+        for(int j=i+1;j<n;j++)
+        {
+            arr[j]=arr[j]/__gcd(arr[i],arr[j]);
+        }
+        ans=((ans%M)*(arr[i]%M))%M;
+    }
+    return (ans)%M;
+}
