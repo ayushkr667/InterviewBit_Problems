@@ -1,0 +1,50 @@
+__________________________________________________________________________________
+APPROACH:1
+__________________________________________________________________________________
+int Solution::solve(vector<int> &A, int B) {
+    //sort(A.begin(),A.end());
+    int i=0,j=0,count=0;
+    int sum=0;
+    while(j<A.size())
+    {
+        if(sum+A[j]<B)
+        {
+            count+=(j-i+1);
+            sum+=A[j];
+            j++;
+        }
+        else
+        {
+            sum-=A[i];
+            i++;
+        }
+    }
+    return count;
+}
+_____________________________________________________________________________________
+APPROACH:2
+_____________________________________________________________________________________
+int Solution::solve(vector<int> &A, int B) 
+{
+    int l=0, r=0, sum=0, count=0;
+    while(l <A.size())
+    {
+        if( r == A.size() )
+        {
+            sum = 0;
+            l++, r=l; continue;
+        }
+        sum+=A[r];
+        if( sum< B )
+        {
+            count++;
+            r++;
+        }
+        else
+        {
+            sum=0;
+            l++; r=l;
+        }
+    }
+    return count;
+}
