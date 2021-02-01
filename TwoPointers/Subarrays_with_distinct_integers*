@@ -1,0 +1,35 @@
+int Solution::solve(vector<int> &A, int B) {
+    int l=0,    ans=0,  prev=0;
+    int r=0,    n=A.size();
+    int vis[n+1]={0},   cnt=0;
+    while(r<n)
+    {
+        if(vis[A[r]]==0)
+        {
+            cnt++;
+        }
+        vis[A[r]]++;
+        while(cnt>B)
+        {
+            vis[A[l]]--;
+            if(vis[A[l]]==0)
+            {
+                cnt--;
+            }
+            l++;
+            prev=0;
+        }
+        while(vis[A[l]]>1)
+        {
+            prev++;
+            vis[A[l]]--;
+            l++;
+        }
+        if(cnt==B)
+        {
+            ans+=prev+1;
+        }
+        r++;
+    }
+    return ans;
+}
