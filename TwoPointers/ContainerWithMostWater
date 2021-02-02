@@ -1,0 +1,21 @@
+int Solution::maxArea(vector<int> &A) 
+{
+    int n = A.size();
+    if( n < 2)
+        return 0;
+    int maximum  = 0;
+        
+    int l=0, r=n-1;
+    while( l < r )
+    {
+        int water = min( A[l], A[r] ) * ( r - l );
+        if( water  > maximum ) 
+            maximum = water;
+            
+        else if ( A[l] == min ( A[l], A[r] ))
+            l++;
+        else
+            r--;
+    }
+    return maximum;
+}
