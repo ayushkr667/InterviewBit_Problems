@@ -1,0 +1,19 @@
+void Solution::sortColors(vector<int> &A) 
+{
+    int red =0, blue =A.size()-1, col = 0;
+    while(col <= blue)//we arrange 0's and 2's, 1's will already be in place
+    {
+        if(A[col]==0)
+        {
+            swap(A[red++],A[col++]);
+        }
+        else if(A[col]==2)
+        {
+            swap(A[blue--],A[col]);
+        }
+        else
+        {
+            col++;
+        }
+    }
+}
