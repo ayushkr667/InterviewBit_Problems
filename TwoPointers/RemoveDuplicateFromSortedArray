@@ -1,0 +1,16 @@
+int Solution::removeDuplicates(vector<int> &A) 
+{
+    int count=0, i=0;
+    while( i < A.size() )
+    {
+        if( i+1 < A.size() && A[i] == A[i+1] )
+        {
+            i++;
+        }
+        else
+        {
+            A[count++] = A[i++];
+        }
+    }
+    return count;
+}
