@@ -1,0 +1,16 @@
+int Solution::solve(vector<int> &A) 
+{
+    int res = 0, r = A.size();
+    for( int i=0; i<A.size(); i++ )
+    {
+        //ith element occurs(elements in left including i)*(elements in right including i)
+        int times = ( (i+1) * r );
+        
+        //As every pair makes 0
+        if( times%2 !=0 )
+            res = res ^ A[i];
+        
+        r--; 
+    }
+    return res;
+}
