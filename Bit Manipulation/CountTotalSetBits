@@ -1,0 +1,21 @@
+int largestPowerof2( int n )
+{
+    int x=0;
+    while( (1LL << x) <= n){
+        x++;
+    }
+    return x - 1;
+}
+
+int Solution::solve(int n) 
+{
+    if( n == 0 )
+        return 0;
+        
+    int x = largestPowerof2(n);
+    int bit_till_x = (x * (  1LL << (x-1) ) )%1000000007;
+    int msb_2_raise_x_to_n = ( n - (1LL << x) +1 )%1000000007;
+    int rest = n - (( 1LL << x )%1000000007);
+    int ans = ((bit_till_x + msb_2_raise_x_to_n)%1000000007 + solve(rest))%1000000007;
+    return ans;
+}
