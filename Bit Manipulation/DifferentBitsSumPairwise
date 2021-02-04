@@ -1,0 +1,21 @@
+
+#define M 1000000007
+int Solution::cntBits(vector<int> &A) 
+{
+    //check bit by bit of each element 
+    //eg let  at i th bit 'a' number javing 1 and 'b' number having 0.
+    //this will create a * b * 2 pairs . similarlu for other
+    int res=0;
+    for( int i=0; i<32; i++){
+        long counton = 0;
+        
+        for(int val=0; val<A.size(); val++){
+            if(( (long)A[val] & (1L<<i)) != 0 ) //this bit is on
+                counton++;
+        }
+        
+        int countoff = A.size() - counton;
+        res = (res + ( (counton%M) * (countoff%M) * 2 )%M )%M;
+    }
+    return res;
+}
