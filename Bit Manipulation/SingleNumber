@@ -1,0 +1,10 @@
+int Solution::singleNumber(const vector<int> &A) 
+{
+    //as every other elements are in pair so their xor is 0.
+    int ans = 0; 
+    for(int i=0; i<A.size(); i++)
+    {
+        ans^=A[i];    
+    }
+    return ans;
+}
