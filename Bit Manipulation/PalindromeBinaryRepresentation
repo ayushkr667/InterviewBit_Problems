@@ -1,0 +1,52 @@
+int getRev( int n )
+{
+    int rev = 0;
+    while( n ){
+        int lowest_bit = n & 1;
+        rev |= lowest_bit;
+        rev = rev <<1;
+        n  = n >> 1;
+    }
+    rev= rev >> 1;
+    return rev;
+}
+
+
+int Solution::solve(int n) 
+{
+    // pallindrome is 1 bit length 1    // pallindrome is 2 bit length 1
+    // pallindrome is 3 bit length 2    // pallindrome is 4 bit length 2
+    // pallindrome is 5 bit length 4    // pallindrome is 6 bit length 4
+    // pallindrome is 7 bit length 8    // pallindrome is 8 bit length 8
+    //so, pallindrome in l bit length is  2^((l-1)/2)
+    int count =1;
+    int len = 1;
+    while(count < n){
+        len++;
+        count+= 1 << ((len-1)/2 );  //as elements of this length is ( 1 << (len-1)/2 )
+    }
+    
+    //now length tells that A th pallindrome will have len bits.
+    
+    count-= 1 << ((len-1)/2 ); //this will take us the count of pallindrome on len-1 bits ends.
+    
+    int off_set  = n - count - 1; //A th pallindrome  if at off_set(0,1,2...) number in group of len bits.
+    
+    //now we have to take care about only len/2 bits other half are filled as pallindrome.
+    //Also MSB is always 1.
+    int ans  = 1 << (len-1) ; //it will make MSB 1 of len bits.
+    
+    //off_set shifs by len/2 bits to place on consecutive to MSB
+    ans |= (off_set << (len/2)); //eg ; 110 000
+    
+    //remaining bits are according to pallindrome
+    int val_for_reverse = ans >> (len/2) ;   //eg;  110 000 - > 000 110.
+    
+    int rev = getRev(val_for_reverse); // return 000 011
+    
+    ans |= rev;
+    
+    return ans;
+}
+
+
