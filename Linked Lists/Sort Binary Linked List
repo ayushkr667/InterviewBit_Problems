@@ -1,0 +1,78 @@
+_______________________________________________________________________________
+APPROACH: 1
+_______________________________________________________________________________
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+ListNode* Solution::solve(ListNode* A) {
+    
+    if( A == NULL )
+        return A;
+    
+    ListNode* zero = A;
+    ListNode* one = A -> next;
+    
+    while( one ){
+        if( zero->val == 1 && one->val == 0 )
+        {
+            //swap
+            zero -> val = 0;    one -> val = 1;
+            zero = zero -> next;    one = one -> next;
+        }
+        else if( zero->val == 1 && one->val == 1 )
+        {
+            one = one->next;
+        }
+        else
+        {
+            zero = zero->next;
+            one = one->next;
+        }
+    }
+    
+    return A;
+}
+
+
+
+______________________________________________________________________________
+APPROACH: 2
+______________________________________________________________________________
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+ListNode* Solution::solve(ListNode* head) {
+    ListNode* A = head;
+    int zero = 0, one = 0;
+    while( A ){
+        if( A->val == 0 )
+            zero++;
+        else
+            one++;
+            
+        A = A -> next;
+    }
+    
+    A = head;
+    while(zero--){
+        A->val = 0;
+        A = A -> next;
+    }
+    while(one--){
+        A->val = 1;
+        A = A -> next;
+    }
+    return head;
+}
