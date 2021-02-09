@@ -1,0 +1,43 @@
+string Solution::simplifyPath(string A) {
+    
+    stringstream ss(A);
+    
+    stack<string> st;
+    
+    while(ss.good() == true){
+        string substr;
+        //get string seperated by '/'
+        getline(ss, substr, '/');
+        
+        
+        //if stack is not empty and .. pop
+        if( (!st.empty() ) && substr == "..")
+            st.pop();
+        
+            
+        else if( substr.length() &&  substr != "." && substr != "..")
+            st.push(substr);
+    }
+    
+    //base case: if stack is empty
+    if( !st.size())
+        return "/";
+        
+    stack<string>rev;
+    while(!st.empty())
+    {
+        string temp = st.top();
+        temp = "/"+ temp;
+        rev.push(temp);
+        st.pop();
+    }
+    
+    string result = "";
+    
+    while(!rev.empty())
+    {
+        result += rev.top();
+        rev.pop();
+    }
+    return result;
+}
