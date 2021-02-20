@@ -1,0 +1,41 @@
+void backtrack(int start, vector<int> &A, vector<int> &curr, set<vector<int> >& res, int sum, int B)
+{
+    if( sum > B )
+        return;
+    
+    if( sum == B){
+        res.insert(curr);
+        return;
+    }
+        
+    for(auto i = start; i < A.size(); i++)
+    {
+        curr.push_back(A[i]);
+        sum+=A[i];
+        
+        backtrack(i+1, A, curr, res, sum, B);
+        
+        curr.pop_back();
+        sum-=A[i];
+    }
+}
+
+vector<vector<int> > Solution::combinationSum(vector<int> &A, int B) {
+    sort(A.begin(), A.end());
+    
+    vector<int> curr;
+    set<vector<int>> res; //set to avoid duplicate
+    
+    backtrack(0, A, curr, res, 0, B);
+    
+    vector<vector<int>> ret;
+    
+    //push unique vector in vector
+    set<vector<int>>::iterator it;
+    for(it= res.begin(); it!=res.end(); it++)
+        ret.push_back(*it);
+
+    sort(ret.begin(),ret.end());
+    
+    return ret;
+}
