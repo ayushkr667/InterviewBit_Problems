@@ -1,0 +1,25 @@
+void backtrack(int st, vector<int> &curr, set<vector<int> > &res, vector<int> &A){
+    res.insert(curr);
+    for(int i=st; i<A.size(); i++){
+        curr.push_back(A[i]);
+        backtrack(i+1, curr, res, A);
+        curr.pop_back();
+    }
+}
+
+
+vector<vector<int> > Solution::subsetsWithDup(vector<int> &A) {
+    sort(A.begin(), A.end());
+    
+    set< vector<int> > res;
+    vector<int> curr;
+    backtrack(0, curr, res, A);
+    
+    vector<vector<int> > res1;
+    
+    set<vector<int>>::iterator it;
+    for(it= res.begin(); it!=res.end(); it++)
+        res1.push_back(*it);
+    
+    return res1;
+}
