@@ -1,0 +1,23 @@
+void permutation(vector<int> &A, int st, vector<vector<int> > &res)
+{
+    if(st == A.size()-1)
+    {
+        res.push_back(A);
+        return;
+    }
+    for(auto i=st; i<A.size(); i++)
+    {
+        swap(A[st], A[i]);
+        permutation(A, st+1, res);
+        swap(A[st], A[i]);
+    }
+}
+
+vector<vector<int> > Solution::permute(vector<int> &A) 
+{
+    vector<vector<int> > res;
+    
+    permutation(A, 0, res);
+    
+    return res;
+}
