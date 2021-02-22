@@ -1,0 +1,27 @@
+void backtrack(int st, string curr,  vector<string> &res, string digit[], string A){
+    if(st == A.length()){
+        res.push_back( curr );
+        return;
+    }
+    
+    int ind = A[st] - '0';
+    
+    for(int i=0; i< digit[ind].length(); i++){
+
+        curr += digit[ind][i];
+        
+        backtrack( st+1, curr, res, digit, A);
+        
+        curr.pop_back();
+    }
+}
+
+
+
+vector<string> Solution::letterCombinations(string A) {
+    vector<string> res;
+    string digit[10] = {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    string curr = "";
+    backtrack(0, curr, res, digit, A);
+    return res;
+}
