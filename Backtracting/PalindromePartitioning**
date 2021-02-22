@@ -1,0 +1,39 @@
+bool isPalindrome(const string s, int i, int j)
+{
+    while (i<j)
+    {
+        if (s[i] == s[j])
+        {
+            ++i; --j;
+        }
+        else
+            return false;
+    }
+    return true;
+}
+
+void backtracking(const string& s, int st, vector<string>& row, vector<vector<string> >& res)
+{
+    if (st == s.length())
+    {
+        res.push_back(row); 
+        return;
+    }
+       
+    for (auto i = st; i < s.length(); i++)
+    {        
+        if (isPalindrome(s, st, i))
+        {
+            row.push_back(s.substr(st, i-st+1)); //get i-st+1 character start from st 
+            backtracking(s, i+1, row, res);
+            row.pop_back();
+        }
+    }
+}
+
+vector<vector<string> > Solution::partition(string A) {
+    vector<string> row;
+    vector<vector<string> > res;
+    backtracking(A, 0, row, res);
+    return res;
+}
