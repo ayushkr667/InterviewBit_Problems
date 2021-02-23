@@ -1,0 +1,19 @@
+void backtrack( vector<int> &res, int bit ){
+    if( bit == 1){
+        res.push_back(0);   res.push_back(1);
+        return;
+    }
+    
+    backtrack( res, bit-1 );
+
+    for(int i=res.size()-1; i>=0; i--){
+        res.push_back( res[i] + (1 << (bit-1)) );
+    }
+}
+
+vector<int> Solution::grayCode(int A) {
+    vector<int> res;
+    backtrack( res, A);
+    
+    return res;
+}
