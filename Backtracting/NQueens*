@@ -1,0 +1,39 @@
+bool check(int r, int c, int n, vector<string>& cur) {
+    // Vertical
+    for(int i = 0; i < r; i++) if(cur[i][c] == 'Q') return false;
+    // Diagonals
+    for(int d = 1; r-d >= 0 && c-d >= 0; d++) if(cur[r-d][c-d] == 'Q') return false;
+    for(int d = 1; r-d >= 0 && c+d < n; d++) if(cur[r-d][c+d] == 'Q') return false;
+    return true;
+}
+
+void solve(int n, int r, vector<vector<string>>& res, vector<string>& cur) {
+    if(r == n) {
+        res.push_back(cur);
+        return;
+    }
+    
+    for(int c = 0; c < n; c++) {
+        if(check(r, c, n, cur)) {
+            cur[r][c] = 'Q';
+            solve(n, r+1, res, cur);
+            cur[r][c] = '.';
+        }
+    }
+}
+
+vector<vector<string> > Solution::solveNQueens(int A) {
+    // first we will place 1 queen in row....so no two queen will be in same roq
+    // Aso, we will place 1 queen in each col ....no two q will be in same col
+    //only chack for same diagonal while backtracking
+    string empty = "";
+    for(int i = 0; i < A; i++) 
+        empty += '.';
+        
+    vector<string> cur(A, empty);
+    
+    vector<vector<string>> res;
+    
+    solve(A, 0, res, cur);
+    return res;
+}
