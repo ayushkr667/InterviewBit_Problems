@@ -1,0 +1,43 @@
+vector< vector<int> > adj;
+
+int dfs(int v, vector<bool>& vis){
+    stack<int> s;
+    s.push(v);
+    vis[v] = true;
+    
+    while( !s.empty() ){
+        int f = s.top();
+        s.pop();
+        for(auto i=adj[f].begin(); i != adj[f].end(); i++){
+            if( !vis[*i] ){
+                vis[*i] = true;
+                s.push( *i );
+            }
+            else if( *i == v){
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+int Solution::solve(int A, vector<vector<int> > &B) {
+    adj.assign(A+1, vector<int>());
+    
+    vector<bool> vis;
+    vis.assign(A+1, false);
+    
+    //create adjacency
+    for(int i=0; i<B.size(); i++){
+        adj[ B[i][0] ].push_back( B[i][1] );
+    }
+    
+    for(int i=1; i<=A; i++){
+        vis.assign(A+1, false);
+        if( !vis[i] ){
+            if( dfs(i, vis) )
+                return 1;
+        }
+    }
+    return 0;
+}
