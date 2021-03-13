@@ -1,0 +1,22 @@
+void dfs(vector<vector<int>>&g, vector<int>&A, int C, int &ans, int good, int curr){
+    if(A[curr-1]==1) good++;
+    if(good>C) return;
+    if(g[curr].size()==0){
+        if(good<=C) ans++;
+        return;
+    }
+    
+    for(int i=0; i<g[curr].size(); i++) dfs(g,A,C,ans,good,g[curr][i]);
+    return;
+}
+
+int Solution::solve(vector<int> &A, vector<vector<int> > &B, int C){
+    vector<vector<int>> g(A.size()+1);
+    for(int i=0; i<B.size(); i++){
+        if(B[i][0]<B[i][1]) g[B[i][0]].push_back(B[i][1]);
+        else g[B[i][1]].push_back(B[i][0]);
+    }
+    int ans=0;
+    dfs(g,A,C,ans,0,1);
+    return ans;
+}
