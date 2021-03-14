@@ -1,0 +1,49 @@
+vector< int > board;
+vector<int> vis;
+
+int dfs( int v ){
+    queue<int>q;
+    q.push(v);
+    vis[v] = 0;
+    
+    while(q.size()){
+        int node=q.front();
+        q.pop();
+        
+        if(node==100){
+            return vis[100];
+        }
+            
+        for(int i=1; i<=6; i++){
+            int child = node+i;
+                if(child > 100)
+                    continue;
+                
+            if( board[child] != -1 ) 
+                    child = board[child];
+                    
+            if( vis[child] == -1) {
+                vis[child] = vis[ node ]+1;
+                q.push(child);
+            }
+        }
+    }
+    return -1;
+}
+
+
+int Solution::snakeLadder(vector<vector<int> > &A, vector<vector<int> > &B) {
+    board.assign(101, -1);
+    
+    vis.assign(101, -1);
+    
+    for(int i=0; i<A.size(); i++){
+        board[ A[i][0] ] = A[i][1];
+    }
+    
+    for(int i=0; i<B.size(); i++){
+        board[ B[i][0] ] = B[i][1];
+    }
+
+    return dfs(1);
+}
