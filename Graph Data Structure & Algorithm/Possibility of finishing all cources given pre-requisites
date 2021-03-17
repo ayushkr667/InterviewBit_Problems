@@ -1,0 +1,40 @@
+vector<vector<int> > adj;//adjacency matrix
+vector<int> vis;
+
+void checkCycle(int u, bool &flag){
+    vis[u] = 1;
+    
+    for(auto i = adj[u].begin(); i != adj[u].end(); i++)
+    {
+        if( !vis[*i] ){
+            checkCycle(*i, flag);
+        }
+        else if(vis[*i] == 1){
+            flag = true;
+        }
+    }
+    vis[u] = 2; //all the edges are explored no cycle found
+}
+
+int Solution::solve(int A, vector<int> &B, vector<int> &C) {
+    bool flag = false;
+    
+    adj.assign(A+1, vector<int>());
+    vis.assign(A+1, 0);
+    
+    //create matrix / directed graph
+    for(int i=0; i<B.size(); i++){
+        adj[ B[i] ].push_back( C[i] );
+    }
+    
+    //check cycle un the graph
+    for(int i=1; i<=A; i++){
+        if( !vis[i] ){
+            checkCycle(i, flag);
+            if(flag){
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
