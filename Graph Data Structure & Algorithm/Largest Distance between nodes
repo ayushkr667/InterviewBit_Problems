@@ -1,0 +1,59 @@
+//a simple approach is go to the farthest node from root
+//again apply bfs on farthest node to go th the other farthest node from that
+//in going ount edges comming in between
+
+vector<vector<int> > adj;
+
+int bfs1( int root , int n, int &level ){
+    vector<bool> vis;
+    vis.assign(n, false);
+    
+    queue<int> q;
+    q.push(root);
+    vis[root] = true;
+    
+    int f;
+    while(!q.empty()){
+        int s = q.size();
+        level++;
+        while( s -- )
+        {
+            f = q.front();
+            q.pop();
+            for(auto i = adj[f].begin(); i != adj[f].end(); i++){
+                if(!vis[*i]){
+                    q.push(*i);
+                    vis[*i] = true;
+                }
+            }
+        }
+    }
+    return f;
+}
+
+int Solution::solve(vector<int> &A) {
+    adj.assign(A.size(), vector<int>());
+    
+    int root;
+    
+    //make tree
+    for(int i = 0; i<A.size(); i++){
+        if( A[i] == -1 ){
+            root  = i;  continue;
+        }
+        
+        adj[ A[i] ].push_back(i);
+        adj[i].push_back( A[i] );
+    }
+    
+    int level = -1;
+    
+    int a = bfs1(root, A.size(), level); //get the farthest node from root
+    
+    level = -1;
+    
+    int res =  bfs1(a, A.size(), level);
+    
+    //cout << a << " " << level << "\n";
+    return level;
+}
