@@ -1,0 +1,50 @@
+int TEAM1 = 0;
+int TEAM2 = 1;
+
+vector<vector<int> >adj;
+vector<int> team;
+
+int dfs( int u ){
+    stack<int> st;
+    
+    st.push( u );
+    team[u] = TEAM1;
+    while( !st.empty() ){
+        int f = st.top();
+        st.pop();
+        for(auto i = adj[f].begin(); i != adj[f].end(); i++){
+            if( team[*i]  == -1 ){
+                st.push(*i);
+                team[*i] = (team[f] == TEAM1) ? TEAM2 : TEAM1; 
+            } 
+            else if( team[*i] == team[f] ){
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+
+int Solution::solve(int A, vector<vector<int> > &B) {
+    adj.assign(A+1, vector<int>());
+    team.assign(A+1, -1);
+        
+    //ith vector has all its enemies
+    for(int i=0; i < B.size(); i++){
+        adj[ B[i][0] ].push_back( B[i][1] );
+        adj[ B[i][1] ].push_back( B[i][0] );
+    }
+    
+    int res = 1;
+    //check for each node because maybe bipartile graph present
+    for(int i=1; i<=A; i++){
+        if( team[i] == -1 ){
+            res = dfs( i );
+            if( !res ){
+                return 0;
+            }
+        }
+    }
+    
+    return 1;
+}
