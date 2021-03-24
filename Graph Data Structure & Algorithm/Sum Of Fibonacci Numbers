@@ -1,0 +1,19 @@
+int Solution::fibsum(int A) {
+    vector<int> fibo;
+    int a = 1, b = 1;
+    fibo.push_back(a);
+    fibo.push_back(b);
+    while(b < A){
+        fibo.push_back(a + b);
+        int temp = a + b;
+        a = b;
+        b = temp;
+    }
+    int count = 0;
+    for(int i=fibo.size()-1; i>=0; i--){
+        count += (A / fibo[i]);
+        A = A % fibo[i];
+    }
+    
+    return count;
+}
