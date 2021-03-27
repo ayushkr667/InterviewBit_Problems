@@ -1,0 +1,29 @@
+// An efficient solution of this problem take O(n) time. The idea is based on the fact that arr[i] ^ arr[j] is equal to x if and only if arr[i] ^ x is equal to arr[j].
+
+// 1) Initialize result as 0.
+// 2) Create an empty hash set "s".
+// 3) Do following for each element arr[i] in arr[]
+//   (a)    If x ^ arr[i] is in "s", then increment result by 1.
+//   (b)    Insert arr[i] into the hash set "s".
+// 3) return result.
+
+
+int Solution::solve(vector<int> &A, int B) {
+    int result = 0; 
+    unordered_set<int> s;
+  
+    for (int i=0; i<A.size() ; i++)
+    {
+        // If there exist an element in set s
+        // with XOR equals to x^arr[i], that means
+        // there exist an element such that the
+        // XOR of element with arr[i] is equal to
+        // x, then increment count.
+        if ( s.find( B^A[i]) != s.end() )
+            result++;
+  
+        s.insert( A[i] );
+    }
+    
+    return result;
+}
