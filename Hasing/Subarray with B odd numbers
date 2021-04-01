@@ -1,0 +1,32 @@
+int Solution::solve(vector<int> &A, int B) {
+    int dp[A.size()] = {0};
+    
+    if( A[0] % 2 != 0)
+        dp[0] = 1;
+    
+    for( int i=1; i<A.size(); i++ ){
+        if( A[i] % 2 != 0 )
+            dp[i] = dp[i-1] + 1;
+        
+        else
+            dp[i] = dp[i-1];
+    }
+    
+    unordered_map<int, int> mp;
+    
+    int count = 0;
+    for(int i=0; i<A.size(); i++){
+        
+        if( dp[i] == B )
+            count++;
+        
+        int temp = dp[i] - B;
+        //as number  of times temp occurs in prefix 
+        //count from that to i will have B odd
+        count += mp[ temp ];
+        
+        //add to map
+        mp[ dp[i] ]++;
+    }
+    return count;
+}
