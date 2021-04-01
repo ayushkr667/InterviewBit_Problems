@@ -1,0 +1,40 @@
+vector<int> Solution::lszero(vector<int> &A) 
+{
+    unordered_map<int, int> mp;
+    int sum = 0;
+    int larg_length = 0; //length of largest subarray
+    int begining = -1;  //begining of largest subarray
+    
+    for(int i=0; i<A.size(); i++)
+    {
+        sum += A[i];
+        //if sum is 0 update largest subarray 
+        if( sum == 0)
+        {
+            larg_length = i+1;
+            begining = -1;
+        }
+        
+        //check is th given sum occured previously
+        //if it do so at (let k) then sum from k+1 to i is 0
+        if( mp.find(sum) != mp.end() )
+        {
+            int len = i - mp[sum];
+            if( len  > larg_length )
+            {
+                begining = mp[sum];
+                larg_length = len;
+            }
+        }
+        else
+            mp[sum] = i;
+    }
+    
+    vector<int> res;
+    for(int i = 1; i<=larg_length; i++)
+    {
+        res.push_back( A[begining+i] );
+    }
+    
+    return res;
+}
