@@ -1,0 +1,21 @@
+vector<int> Solution::twoSum(const vector<int> &A, int B) {
+    
+    unordered_map<int, int> mp;
+    vector<int> res;
+    
+    for(int i=0; i<A.size(); i++)
+    {
+        int temp = B - A[i]; //now we nwwd to find if temp occured previously
+        if( mp.find(temp) != mp.end() )
+        {
+            res.push_back( mp[temp] +1);
+            res.push_back( i + 1);
+            break;
+        }
+        
+        if( mp.find( A[i] ) == mp.end())
+            mp[ A[i] ] = i;
+    }
+    
+    return res;
+}
