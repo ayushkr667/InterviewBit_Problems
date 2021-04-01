@@ -1,0 +1,21 @@
+int Solution::colorful(int A) {
+    vector<int>arr;
+    while( A > 0 ){
+        arr.push_back( A % 10 );
+        A /= 10;
+    }
+    
+    unordered_map<int, int> mp;
+    
+    for(int i=0; i<arr.size(); i++){
+        int prod = 1;
+        for(int j=i; j<arr.size(); j++){
+            prod *= arr[j];
+            if( mp.find(prod) != mp.end() )
+                return 0;
+                
+            mp[prod] = 1;
+        }
+    }
+    return 1;
+}
