@@ -1,0 +1,28 @@
+int Solution::solve(vector<int> &A) {
+    int max_length = 0, sum = 0;
+    
+    unordered_map<int, int> mp;
+    for(int i=0; i<A.size(); i++){
+        sum += ( A[i] == 0) ? -1 : 1;
+        
+        //means 1's is 1 more than 0
+        if( sum == 1 ){
+            max_length = i+1;
+        }
+        
+        // check if 'sum-1' is present in map 
+        //from that index to i. 1's is one more than 0
+        if ( mp.find(sum - 1) != mp.end() ) 
+        {
+            // update maxLength 
+            if (max_length < (i - mp[sum - 1])) 
+                max_length = i - mp[sum - 1]; 
+        }
+        
+        //put the index of sum in hahmap is it is not there
+        if( mp.find( sum ) == mp.end() ){
+            mp[sum] = i;
+        }
+    }
+    return max_length;
+}
