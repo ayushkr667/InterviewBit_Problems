@@ -1,0 +1,37 @@
+vector<vector<int> > Solution::fourSum(vector<int> &nums, int target) {
+    vector<vector<int>> res;
+        int n=nums.size();
+        sort(nums.begin(),nums.end());  
+        
+        for(int i=0;i<n-3;i++)
+        {
+            //exclude repetation
+            if(i==0 ||(i>0 && nums[i]!=nums[i-1]))
+            {  
+                for(int x= i+1;x<n-2;x++)
+                {
+                    if(x==i+1 || x>i+1 && nums[x]!=nums[x-1])
+                    { 
+                        //binary search
+                        int j=x+1, k=n-1;
+                        while(j<k)
+                        {
+                            int sum=nums[i]+nums[j]+nums[x]+nums[k];
+                            if(sum==target)
+                            {
+                                res.push_back({nums[i],nums[x],nums[j],nums[k]});
+                                //exclude repeatation
+                                while(j<k && nums[j]==nums[j+1])j++;
+                                //exclude repeatation
+                                while(j<k && nums[k]==nums[k-1])k--;
+                                j++;k--;
+                            }
+                            else if(sum<target)j++;
+                            else k--;
+                        }
+                    }
+                }
+            }
+        }
+    return res;
+}
