@@ -1,0 +1,39 @@
+int Solution::isValidSudoku(const vector<string> &A) {
+    bool r[9][9], c[9][9], box[9][9];
+    memset(r, false, sizeof(r));
+    memset(c, false, sizeof(c));
+    memset(box, false, sizeof(box));
+    int number;
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            if (A[i][j] > '0' && A[i][j] <='9') 
+            {
+                //1 is treated as 0,   and son....9 as 8
+                number = A[i][j] - '1';
+                
+                //already present in row 
+                if (r[i][number]) 
+                    return false;
+                    
+                r[i][number] = true;
+                
+                //already present in column
+                if (c[j][number]) 
+                    return false;
+                    
+                c[j][number] = true;
+                
+                //already present in square matrix
+                //col....0-2 and row 0-2 is 0 th row
+                //col....3-5 and row 0-2 is 1st row and so on..
+                if( box[(i/3)*3 + (j/3)][number] )
+                    return false;
+            
+                box[(i/3)*3 + (j/3)][number] = true;
+                
+            }
+        }
+    }
+    return true;
+    
+}
