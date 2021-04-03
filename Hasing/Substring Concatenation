@@ -1,0 +1,50 @@
+vector<int> Solution::findSubstring(string A, const vector<string> &B) 
+{
+    int size = B[0].size();
+    int n = B.size();
+    
+    // Total characters present in list B.
+    int size_L = size * n;
+    
+    vector<int> res;
+  
+    // If the total number of characters in list B is more than length of string S itself.
+    if (size_L > A.size())
+        return res;
+        
+    unordered_map<string, int >mp;
+    
+    for(int i=0; i<B.size(); i++){
+        mp[ B[i] ]++;
+    }
+    
+    for(int i=0; i<A.size(); i++)
+    {
+        //temporary map initialized with map of B
+        unordered_map<string, int> temp_hash_map(mp);
+        
+        int j = i, count = n;
+  
+        // Traverse the substring 
+        while (j < i + size_L) {
+  
+            // Extract the word
+            string word = A.substr(j, size);
+  
+            // If word not found or if frequency of current word is more than required simply break.
+            if (mp.find(word) == mp.end() || temp_hash_map[word] == 0)
+                break;
+  
+            // Else decrement the count of word from hash_map
+            else
+               { temp_hash_map[word]--; count--; } 
+  
+  
+            j += size;
+        }    
+        // Store the starting index of that substring when all the words in the list are in substring
+        if (count == 0)
+            res.push_back(i);
+    }  
+    return res;       
+}
