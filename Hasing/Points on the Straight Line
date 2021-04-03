@@ -1,0 +1,40 @@
+//We can solve above problem by following approach – 
+//For each point p, calculate its slope with other 
+//points and use a map to record how many points have same slope,
+//by which we can find out how many points are on same line with p as their one point.
+//For each point keep doing the same thing and update the maximum number of point 
+//count found so far.
+
+
+
+int Solution::maxPoints(vector<int> &A, vector<int> &B) {
+    unordered_map<double,int>ump;
+    int n=A.size();
+    if(n==1){
+        return 1;
+    }
+    int ans=0;
+    for(int x=0; x<n; x++)
+    {
+        for(int y=0; y<n; y++)
+        {
+            if(x!=y)
+            {
+                if(A[x]==A[y])
+                {
+                    ump[INT_MAX]++;
+                }
+                else
+                {
+                    double temp=(double)((double)(B[y]-B[x])/(double)(A[y]-A[x]));
+                    ump[temp]++;
+                }
+            }
+        }
+        for(auto i:ump){
+            ans=max(ans,i.second+1);
+        }
+        ump.clear();
+    }
+    return ans;
+}
