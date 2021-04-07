@@ -1,0 +1,18 @@
+//we have final element which count is > n/2 
+//as half of the count is cancelled of half other element
+//as its count is greater than n/2 so, element is answer.
+int Solution::majorityElement(const vector<int> &A) {
+
+    int element;
+    int count = 0;
+    for(int i = 0; i<A.size(); i++){
+        if( count == 0 ){
+            element = A[i];     count = 1;      continue;
+        }
+        if( A[i] == element )
+            count++;
+        else
+            count--;
+    }
+    return element;
+}
