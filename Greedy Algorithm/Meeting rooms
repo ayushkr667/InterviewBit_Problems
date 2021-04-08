@@ -1,0 +1,23 @@
+int Solution::solve(vector<vector<int> > &A) {
+    //sort by start time
+    sort(A.begin(), A.end());
+    
+    priority_queue<int, vector<int>, greater<int> > earliest_end_time;
+
+    int count = 0;
+    for(int i=0; i<A.size(); i++){
+        if( earliest_end_time.empty() ){
+            count++;
+            
+        }
+        else if( A[i][0] < earliest_end_time.top() ){
+            count++;
+        }
+        else{
+            earliest_end_time.pop();
+            
+        }
+        earliest_end_time.push( A[i][1] ); 
+    }
+    return count;
+}
