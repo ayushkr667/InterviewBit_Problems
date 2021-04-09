@@ -1,0 +1,28 @@
+vector<int> Solution::solve(vector<int> &A, int B) {
+    
+    unordered_map< int, int > mp;
+    int n = A.size();
+    for(int i=0; i<A.size(); i++)
+    {
+        mp[ A[i] ] = i;
+    }
+    
+    for(int i=0; i<n && B; i++){
+        //already maximum
+        if( A[i] == n-i )
+            continue;
+            
+        int index = mp[n-i];
+        
+        //swap the elements position in map
+        mp[ A[i] ] = mp[n - i];
+        mp[n - i] = i;
+        
+        //swap the ith largest
+        swap( A[index], A[i] );
+        
+        B--;
+    }
+    
+    return A;
+}
