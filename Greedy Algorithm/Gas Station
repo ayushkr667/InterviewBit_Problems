@@ -1,0 +1,25 @@
+int Solution::canCompleteCircuit(const vector<int> &gas, const vector<int> &cost) {
+    int tank = 0, start = 0, sumGas = 0, sumCost = 0;
+    
+    for (auto i = 0; i<gas.size(); ++i)
+    {
+        sumGas += gas[i];
+        sumCost += cost[i];
+        tank += (gas[i] - cost[i]);
+        if (tank < 0)
+        {
+            //we are making start as i+1 as it is reaching till i
+            //from begining and assuming total fuel is greater than 
+            //cost so, if it will reach till n-1 it will definitely 
+            //reach from 0 to i again as it has some. fuel already this time
+            //when it reaches to start which is left from i+1 to n-1.
+            start = i + 1;
+            tank = 0;
+        }
+    }
+    
+    if (sumGas < sumCost)
+        return -1;
+        
+    return start;
+}
