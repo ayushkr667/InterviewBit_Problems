@@ -1,0 +1,31 @@
+vector<int> Solution::dNums(vector<int> &A, int B) {
+    if( B > A.size() )
+        return {};
+        
+    set<int> myset; //hold distinct element
+    unordered_map<int, int> mp; //hold count of each 
+    vector<int> res; 
+    int i;
+    //push first i element in set
+    for(i=0; i<B; i++){
+        myset.insert( A[i] );
+        mp[ A[i] ]++;
+    }
+        
+    for( ; i < A.size(); i++){
+        res.push_back( myset.size() );
+        mp[ A[i-B] ]--;
+        
+        //if count of A[i-B] exhausted then erase
+        if( mp[ A[i-B] ] == 0 ){
+            myset.erase( A[i-B] );
+        }
+        
+        //insert the current elment
+        myset.insert( A[i] );
+        mp[ A[i] ]++;
+    }
+    res.push_back( myset.size() );
+    
+    return res;
+}
