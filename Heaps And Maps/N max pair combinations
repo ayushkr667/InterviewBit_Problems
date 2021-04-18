@@ -1,0 +1,44 @@
+vector<int> Solution::solve(vector<int> &A, vector<int> &B) {
+    sort( A.begin(), A.end(), greater<int>() );
+    sort(B.begin(), B.end(), greater<int>() );
+    
+    priority_queue<pair<int, pair<int, int> > > pq;
+    pq.push( { (A[0]+B[0]), {0, 0} } );
+    
+    set<pair<int, int> > my_set; // to check if element does not repeat
+    my_set.insert( {0, 0} );
+    
+    vector<int> res;
+    
+    // iterate upto K
+    for (int count = 0; count < A.size(); count++){
+        // tuple format (sum, (i, j)).
+        auto temp = pq.top();
+        pq.pop();
+        res.push_back( temp.first );
+        
+        int i = temp.second.first;
+        int j = temp.second.second;
+        auto temp1 = make_pair(i + 1, j);
+ 
+        int sum = A[i + 1] + B[j];
+        
+        //if it is not present push in pq.
+        if (my_set.find(temp1) == my_set.end())
+        {
+            pq.push(make_pair(sum, temp1));
+            my_set.insert(temp1);
+        }
+        
+        sum = A[i] + B[j + 1];
+        temp1 = make_pair(i, j+1);
+        
+        //if it is not present push in pq.
+        if (my_set.find(temp1) == my_set.end())
+        {
+            pq.push(make_pair(sum, temp1));
+            my_set.insert(temp1);
+        }
+    }
+    return res;
+}
