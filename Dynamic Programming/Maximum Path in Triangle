@@ -1,0 +1,23 @@
+int Solution::solve(vector<vector<int> > &A) {
+    int n = A.size() -1;
+    int m = A[0].size() -1;
+    // loop for bottom-up calculation
+    for (int i=m-1; i>=0; i--)
+    {
+        for (int j=0; j<=i; j++)
+        {
+            // for each element, check both
+            // elements just below the number
+            // and below right to the number
+            // add the maximum of them to it
+            if (A[i+1][j] > A[i+1][j+1])
+                A[i][j] += A[i+1][j];
+            else
+                A[i][j] += A[i+1][j+1];
+        }
+     }
+ 
+     // return the top element
+     // which stores the maximum sum
+     return A[0][0];
+}
