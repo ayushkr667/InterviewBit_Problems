@@ -1,0 +1,30 @@
+int Solution::solve(const vector<int> &A) {
+    int n = A.size();
+    if( n <= 1)
+        return n;
+    // Stores the length of sequences
+    // having same difference
+    unordered_map<int, unordered_map<int, int> > dp;
+ 
+    // Stores the resultant length
+    int res = 2;
+ 
+    // Iterate over the array
+    for (int i = 0; i < n; ++i) {
+ 
+        for (int j = i + 1; j < n; ++j) {
+ 
+            int d = A[j] - A[i];
+ 
+            // Update length of subsequence
+            //dp [d][j] stored the number of elements ends at j and having difference d
+            //dp[d][i] stores the number of elements starts at i and having difference d
+            dp[d][j] = dp[d].count(i)? dp[d][i] + 1: 2;
+ 
+            res = max(res, dp[d][j]);
+        }
+    }
+ 
+    // Return res
+    return res;
+}
