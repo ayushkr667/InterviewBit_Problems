@@ -1,23 +1,32 @@
-int Solution::solve(int n, int s) {
-    long long int dp[n][s];
-    if(s<1||s>9*n) return 0;
-    
-    for(int i=0;i<s;i++){
-        if(i+1<=9) dp[0][i]=1;
-        else dp[0][i]=0;
+//Memoization
+
+int rec(vector<vector<int > > &dp, int id, int sum) {
+    if(sum < 0) return 0;
+    if(id == 0 && sum == 0) return 1;
+    if(id == 0) return 0;
+
+    if(dp[id][sum] != -1) return dp[id][sum];
+
+    int ans = 0;
+    for(int i = 0; i < 10; i++) {
+        ans += rec(dp,id - 1, sum - i);
+        ans %= 1000000007;
     }
-    for(int j=0;j<n;j++){
-        dp[j][0]=1;
+    return dp[id][sum] = ans;
+}
+
+int Solution::solve(int A, int B) {
+    int ans = 0;
+    vector<vector<int> > dp;
+    dp.resize(A+1);
+    for(int i = 0; i < A+1; i++) {
+        dp[i].resize(B+1);
+        for(int j = 0; j < B+1; j++)
+              dp[i][j] = -1;
     }
-    for(int i=1;i<n;i++){
-        for(int j=1;j<s;j++){
-            dp[i][j]=0;
-            int k=0;
-            if(j>=9) k=j-9;
-            for(;k<=j;k++)
-             dp[i][j]=(dp[i][j]+dp[i-1][k])%1000000007;
-             
-        }
+    for(int i = 1; i < 10; i++) {
+        ans += rec(dp, A-1, B-i);
+        ans %= 1000000007;
     }
-    return dp[n-1][s-1];
+    return ans;
 }
