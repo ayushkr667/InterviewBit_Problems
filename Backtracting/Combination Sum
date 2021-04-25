@@ -21,7 +21,6 @@ void backtracking(int start, vector<int>& row, int sum, vector<vector<int> >& re
     backtracking(start+1, row, sum, res, A, B);
 }
 
-
 vector<vector<int> > Solution::combinationSum(vector<int> &A, int B) {
     vector<vector<int> > res;
     vector<int> row, A1;
