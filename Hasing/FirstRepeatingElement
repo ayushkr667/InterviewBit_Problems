@@ -15,7 +15,11 @@ int Solution::solve(vector<int> &A) {
 }
 
 
+
+
 //OR
+
+
 
 // int Solution::solve(vector<int> &A) {
 //     int n=A.size();
