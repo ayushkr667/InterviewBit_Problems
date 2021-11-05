@@ -1,3 +1,5 @@
+
+
 string Solution::simplifyPath(string A) {
     
     stringstream ss(A);
